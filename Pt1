@@ -1,0 +1,50 @@
+saldo = input("Digite o saldo inicial: ")
+print(f'Saldo: {saldo}')
+class Lancamento:
+    def __init__(self, Valor, Categoria, Data, Descricao, FormaDePagamento):
+      self.Valor = int(input(Valor))
+      if self.Valor <= 0:
+        raise Exception('Valor Inválido')
+      Lista_Categorias = ['Receita', 'Despesa', 'receita', 'despesa', 'rec', 'des']
+      self.Categoria = input(Categoria)
+      if self.Categoria in Lista_Categorias:
+          if self.Categoria == 'Receita' or 'receita' or 'rec':
+              Receita().somar()
+          elif self.Categoria == 'Despesa' or 'despesa' or 'des':
+              Despesa().diminuir()
+          else:
+              raise Exception('Tipo Inválido2')
+      else:
+          raise Exception('Tipo Inválido1')
+      
+      self.data = input(Data)
+      self.Descricao = input(str(Descricao))
+      self.FormaDePagamento = input(FormaDePagamento)
+      Lista_FormaDePagamento = ['dinheiro', 'débito', 'crédito', 'PIX']
+      if self.FormaDePagamento not in Lista_FormaDePagamento:
+          raise Exception('Forma de Pagamento Inválida')
+
+class Receita(Lancamento):
+    def somar(self, nome, valor, Descricao):
+        self.nome = super().__init__(nome)
+        self.valor = super().__init__(valor)
+        self.valor += saldo
+        self.Descricao = super().__init__(Descricao)
+
+class Despesa(Lancamento):
+    def diminuir(self, nome, valor, Descricao):
+        self.nome = super().__init__(nome)
+        self.valor = super().__init__(valor)
+        self.valor -= saldo
+        if self.valor > 500.00:
+            print('Valor Alto') 
+        self.Descricao = super().__init__(Descricao)
+    
+
+lancamento1 = Lancamento('Valor: ', 'Categoria: ', 'Data: ', 'Descrição: ', 'FormaDePagamento: ')
+receita1 = Receita()
+despesa1 = Despesa()
+
+print(receita1)
+print(despesa1)
+print(f'Saldo atualizado: {saldo}')
