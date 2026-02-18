@@ -1,0 +1,45 @@
+CREATE TABLE public.lancamento (
+	descricao varchar NOT NULL,
+	categoria varchar NOT NULL,
+	formadepagamento varchar NOT NULL,
+	"data" date NOT NULL,
+	valor numeric NOT NULL,
+	CONSTRAINT lancamento_pk PRIMARY KEY (categoria)
+);
+
+CREATE TABLE public.despesa (
+	valor numeric NOT NULL,
+	categoria varchar NOT NULL,
+	"Data" date NOT NULL,
+	descricao varchar NOT NULL,
+	forma_de_pagamento varchar NOT NULL,
+	CONSTRAINT despesa_pk PRIMARY KEY (categoria),
+	CONSTRAINT despesa_lancamento_fk FOREIGN KEY (categoria) REFERENCES public.lancamento(categoria)
+);
+
+
+CREATE TABLE public.receita (
+	descricao varchar NOT NULL,
+	categoria varchar NOT NULL,
+	formadepagamento varchar NOT NULL,
+	"data" date NOT NULL,
+	valor numeric NOT null,
+	CONSTRAINT receita_pk PRIMARY KEY (descricao)
+);
+
+CREATE TABLE public.categoria_despesa (
+	nome varchar NOT NULL,
+	tipo varchar NOT NULL,
+	descricao varchar NULL,
+	limite_mensal varchar NOT NULL,
+	CONSTRAINT categoria_despesa_pk PRIMARY KEY (tipo),
+	CONSTRAINT categoria_despesa_despesa_fk FOREIGN KEY (tipo) REFERENCES public.despesa(categoria)
+);
+
+CREATE TABLE public.categoria_receita (
+	nome varchar NOT NULL,
+	tipo varchar NOT NULL,
+	descricao varchar NULL,
+	CONSTRAINT categoria_receita_pk PRIMARY KEY (tipo),
+	CONSTRAINT categoria_receita_receita_fk FOREIGN KEY (tipo) REFERENCES public.receita(categoria)
+);
